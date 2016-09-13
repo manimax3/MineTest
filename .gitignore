@@ -1,0 +1,6 @@
+*.psess
+*.sdf
+/.vs
+/Diagnose
+/Debug
+/MineTest/Debug
