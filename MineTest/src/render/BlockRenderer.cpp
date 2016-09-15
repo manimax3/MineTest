@@ -62,7 +62,6 @@ GLfloat testquad[] = {
 };
 
 BlockRenderer::BlockRenderer()
-	: m_Shader("./res/shader/BlockRenderer.vert", "./res/shader/BlockRenderer.frag")
 {
 }
 
@@ -78,6 +77,8 @@ BlockRenderer::~BlockRenderer()
 
 void BlockRenderer::init()
 {
+	m_Shader = std::make_unique<Shader>("./res/shader/BlockRenderer.vert", "./res/shader/BlockRenderer.frag");
+
 	uint BlockVBO;
 	GLCall(glCreateVertexArrays(1, &m_ChunkVao));
 
@@ -131,10 +132,10 @@ void BlockRenderer::begin()
 	GLCall(glActiveTexture(GL_TEXTURE0));
 	m_BlockTextures.bind();
 
-	m_Shader.Use();
-	m_Shader.setUniform1i("textures", 0);
+	m_Shader->Use();
+	m_Shader->setUniform1i("textures", 0);
 	glm::mat4 vp = GameRegistry::instance().getPlayer().m_Camera.getVPMatrix();
-	m_Shader.setUniformMat4("vp", vp);
+	m_Shader->setUniformMat4("vp", vp);
 
 	GLCall(glBindVertexArray(m_ChunkVao));
 }

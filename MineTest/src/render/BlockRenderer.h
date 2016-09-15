@@ -23,7 +23,7 @@ public:
 private:
 	BlockRenderer();
 
-	Shader m_Shader;
+	std::unique_ptr<Shader> m_Shader;
 	Texture2DArray m_BlockTextures;
 
 	uint m_ChunkVao;
