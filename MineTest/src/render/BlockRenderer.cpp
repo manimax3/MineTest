@@ -136,11 +136,11 @@ struct ShaderBlock
 	int id;
 };
 
-void BlockRenderer::render(Chunk &chunk)
+void BlockRenderer::render(const Chunk &chunk)
 {
 	ShaderBlock *block = (ShaderBlock *) glMapNamedBuffer(m_ChunkVBO, GL_WRITE_ONLY);
 
-	for (Block &bl : chunk.m_Blocks)
+	for (const Block &bl : chunk.m_Blocks)
 	{
 		const glm::vec3 &pos = bl.position;
 		block->x = pos.x;
@@ -152,5 +152,4 @@ void BlockRenderer::render(Chunk &chunk)
 
 	GLCall(glUnmapNamedBuffer(m_ChunkVBO));
 	GLCall(glDrawArraysInstanced(GL_TRIANGLES, 0, 36, chunk.m_Blocks.size()));
-//	std::cout << "drawn";
 }

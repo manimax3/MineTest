@@ -21,6 +21,7 @@ public:
 
 protected:
 	void registerChunk(Chunk& chunk);
+	void clearChunks();
 	void createThread();
 
 private:
