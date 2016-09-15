@@ -1,49 +1,57 @@
 #include "BlockRenderer.h"
 #include "../game/registry/GameRegistry.h"
 
+#define TEXTURE(x, y) ((x + y) / 6.f)
+
 GLfloat cubeVertices[] = {
 	// Positions          // Texture Coords
-	-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-	0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
-	0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-	0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-	-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-	-0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+	//back
+	-0.5f, -0.5f, -0.5f,  TEXTURE(0.0f, 3), 0.0f, // lb
+	0.5f, -0.5f, -0.5f,   TEXTURE(1.0f, 3), 0.0f,  // rb
+	0.5f,  0.5f, -0.5f,   TEXTURE(1.0f, 3), 1.0f,  // rt
+	0.5f,  0.5f, -0.5f,   TEXTURE(1.0f, 3), 1.0f,  // rt
+	-0.5f,  0.5f, -0.5f,  TEXTURE(0.0f, 3), 1.0f, // lt
+	-0.5f, -0.5f, -0.5f,  TEXTURE(0.0f, 3), 0.0f, // lb
 
-	-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-	0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-	0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-	0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-	-0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
-	-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+	//front
+	-0.5f, -0.5f,  0.5f,  TEXTURE(0.0f, 1), 0.0f,
+	0.5f, -0.5f,  0.5f,   TEXTURE(1.0f, 1), 0.0f,
+	0.5f,  0.5f,  0.5f,   TEXTURE(1.0f, 1), 1.0f,
+	0.5f,  0.5f,  0.5f,   TEXTURE(1.0f, 1), 1.0f,
+	-0.5f,  0.5f,  0.5f,  TEXTURE(0.0f, 1), 1.0f,
+	-0.5f, -0.5f,  0.5f,  TEXTURE(0.0f, 1), 0.0f,
 
-	-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-	-0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-	-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-	-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-	-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-	-0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+	//left
+	-0.5f,  0.5f,  0.5f,  TEXTURE(1.0f, 4), 0.0f,
+	-0.5f,  0.5f, -0.5f,  TEXTURE(1.0f, 4), 1.0f,
+	-0.5f, -0.5f, -0.5f,  TEXTURE(0.0f, 4), 1.0f,
+	-0.5f, -0.5f, -0.5f,  TEXTURE(0.0f, 4), 1.0f,
+	-0.5f, -0.5f,  0.5f,  TEXTURE(0.0f, 4), 0.0f,
+	-0.5f,  0.5f,  0.5f,  TEXTURE(1.0f, 4), 0.0f,
 
-	0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-	0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-	0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-	0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-	0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-	0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+	//right
+	0.5f,  0.5f,  0.5f,  TEXTURE(1.0f, 2), 0.0f,
+	0.5f,  0.5f, -0.5f,  TEXTURE(1.0f, 2), 1.0f,
+	0.5f, -0.5f, -0.5f,  TEXTURE(0.0f, 2), 1.0f,
+	0.5f, -0.5f, -0.5f,  TEXTURE(0.0f, 2), 1.0f,
+	0.5f, -0.5f,  0.5f,  TEXTURE(0.0f, 2), 0.0f,
+	0.5f,  0.5f,  0.5f,  TEXTURE(1.0f, 2), 0.0f,
 
-	-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-	0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
-	0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-	0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-	-0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-	-0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+	//bottom
+	-0.5f, -0.5f, -0.5f, TEXTURE(0.0f, 0), 1.0f,
+	0.5f, -0.5f, -0.5f,  TEXTURE(1.0f, 0), 1.0f,
+	0.5f, -0.5f,  0.5f,  TEXTURE(1.0f, 0), 0.0f,
+	0.5f, -0.5f,  0.5f,  TEXTURE(1.0f, 0), 0.0f,
+	-0.5f, -0.5f,  0.5f, TEXTURE(0.0f, 0), 0.0f,
+	-0.5f, -0.5f, -0.5f, TEXTURE(0.0f, 0), 1.0f,
 
-	-0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-	0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-	0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-	0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-	-0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
-	-0.5f,  0.5f, -0.5f,  0.0f, 1.0f
+	//top
+	-0.5f,  0.5f, -0.5f, TEXTURE(0.0f, 5), 1.0f,
+	0.5f,  0.5f, -0.5f,  TEXTURE(1.0f, 5), 1.0f,
+	0.5f,  0.5f,  0.5f,  TEXTURE(1.0f, 5), 0.0f,
+	0.5f,  0.5f,  0.5f,  TEXTURE(1.0f, 5), 0.0f,
+	-0.5f,  0.5f,  0.5f, TEXTURE(0.0f, 5), 0.0f,
+	-0.5f,  0.5f, -0.5f, TEXTURE(0.0f, 5), 1.0f
 };
 
 GLfloat testquad[] = {
@@ -110,7 +118,7 @@ void BlockRenderer::init()
 	prop.Wrapping_S = GL_CLAMP_TO_BORDER;
 	prop.Wrapping_T = GL_CLAMP_TO_BORDER;
 	prop.height = 32;
-	prop.width = 32;
+	prop.width = 192;
 
 	m_BlockTextures.loadFromFiles(paths, prop);
 

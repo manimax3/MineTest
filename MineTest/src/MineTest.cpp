@@ -108,6 +108,7 @@ void MineTest::preInit()
 {
 	GameRegistry::instance().registerBlock(std::string("block_Stone"));
 	GameRegistry::instance().registerBlock(std::string("block_Dirt"));
+	GameRegistry::instance().registerBlock(std::string("block_Sided"));
 }
 
 void MineTest::postInit()

@@ -21,4 +21,4 @@ void __CheckGLError(const char* function, const char* file, int line);
 typedef unsigned int uint;
 typedef unsigned char byte;
 
-constexpr int SCREEN_WIDTH = 640, SCREEN_HEIGHT = 480;
+constexpr int SCREEN_WIDTH = 1280, SCREEN_HEIGHT = 720;
