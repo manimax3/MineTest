@@ -96,10 +96,6 @@ void MineTest::tick()
 {
 #ifdef DEBUG
 	std::cout << "FPS: " << m_FPS << " UPS: " << m_UPS << std::endl;
-	int playerChunkzPos = ((int)GameRegistry::instance().getPlayer().getPosition().z) >> 4;
-	int playerChunkXPos = ((int)GameRegistry::instance().getPlayer().getPosition().x) >> 4;
-
-	std::cout << "Player chunk z pos: " << playerChunkzPos << " XPOS: " << playerChunkXPos << std::endl;
 #endif
 
 }

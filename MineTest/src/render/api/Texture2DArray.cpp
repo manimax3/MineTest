@@ -16,7 +16,7 @@ void Texture2DArray::loadFromFiles(const std::vector<std::string> &files, const 
 	m_Properties = properties;
 	
 	GLCall(;);
-	GLCall(glTextureStorage3D(m_TextureID, 6, GL_RGB8, m_Properties.width, m_Properties.height, files.size()));
+	GLCall(glTextureStorage3D(m_TextureID, 3, GL_RGB8, m_Properties.width, m_Properties.height, files.size()));
 
 	GLCall(glTextureParameteri(m_TextureID, GL_TEXTURE_MIN_FILTER, m_Properties.FilterMin));
 	GLCall(glTextureParameteri(m_TextureID, GL_TEXTURE_MAG_FILTER, m_Properties.FilterMag));
