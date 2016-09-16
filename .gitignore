@@ -1,6 +1,7 @@
-*.psess
-*.sdf
+/*.sdf
+/*.psess
 /.vs
-/Diagnose
 /Debug
+/Diagnose
 /MineTest/Debug
+/MineTest.VC.opendb

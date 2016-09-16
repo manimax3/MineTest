@@ -60,6 +60,9 @@
     <ClCompile Include="src\util\FastNoise.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="src\render\Renderer2D.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\MineTest.h">
@@ -107,5 +110,15 @@
     <ClInclude Include="src\util\FastNoise.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="src\render\Renderer2D.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="todo.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\shader\Renderer2D.vert" />
+    <None Include="res\shader\Renderer2D.frag" />
   </ItemGroup>
 </Project>

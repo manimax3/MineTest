@@ -20,10 +20,10 @@ World::~World()
 void World::render()
 {
 	std::lock_guard<std::mutex> lock(m_ChunkMutex);
-	BlockRenderer::instance().begin();
+	BlockRenderer::instance()->begin();
 	for (auto &loadedChunk : this->getChunks())
 	{
-		BlockRenderer::instance().render(loadedChunk);
+		BlockRenderer::instance()->render(loadedChunk);
 	}
 }
 

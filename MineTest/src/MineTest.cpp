@@ -7,6 +7,7 @@
 #include <assert.h>
 #include <string>
 #include "game/world/World.h"
+#include "render/Renderer2D.h"
 
 
 void MineTest::run()
@@ -81,6 +82,9 @@ void MineTest::render()
 	GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 
 	world.render();
+	Renderer2D::instance()->begin();
+	Renderer2D::instance()->submitRectangle(glm::vec2(100, 100), glm::vec2(100, 100), glm::vec3(255, 255, 255));
+	Renderer2D::instance()->flush();
 
 	glfwSwapBuffers(m_Window);
 }
@@ -109,7 +113,8 @@ void MineTest::preInit()
 
 void MineTest::postInit()
 {
-	BlockRenderer::instance().init();
+	BlockRenderer::instance()->init();
+	Renderer2D::instance()->init();
 	
 }
 

@@ -65,10 +65,10 @@ BlockRenderer::BlockRenderer()
 {
 }
 
-BlockRenderer& BlockRenderer::instance()
+BlockRenderer* BlockRenderer::instance()
 {
 	static BlockRenderer *instance = new BlockRenderer;
-	return *instance;
+	return instance;
 }
 
 BlockRenderer::~BlockRenderer()

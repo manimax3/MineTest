@@ -7,9 +7,11 @@ class Texture2D
 {
 public:
 	Texture2D();
+	Texture2D(uint &custom_id);
 	~Texture2D();
 
-	void loadFromFile(std::string path, const TextureProperties &properties);
+	void loadFromFile(std::string path, TextureProperties &properties);
+	void loadFromMemory(byte* data, TextureProperties &properties);
 	void bind(uint unit = 0);
 	inline uint getID() { return m_TextureID; }
 

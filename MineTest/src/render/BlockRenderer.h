@@ -4,14 +4,13 @@
 #include "api/Shader.h"
 #include "../game/world/Chunk.h"
 
-
 class BlockRenderer
 {
 
-	static const size_t CHUNK_VBO_MAX_SIZE = Chunk::CHUNK_SIZE * Chunk::CHUNK_SIZE * Chunk::CHUNK_HEIGHT * sizeof(GLfloat) * 4;
+	static constexpr size_t CHUNK_VBO_MAX_SIZE = Chunk::CHUNK_SIZE * Chunk::CHUNK_SIZE * Chunk::CHUNK_HEIGHT * sizeof(GLfloat) * 4;
 
 public:
-	static BlockRenderer& instance();
+	static BlockRenderer* instance();
 public:
 	~BlockRenderer();
 

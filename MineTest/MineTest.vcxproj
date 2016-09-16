@@ -89,7 +89,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>GLEW_STATIC;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\C++\Libraries\Simple OpenGL Image Library\src;D:\C++\Libraries\GLEW\include;D:\C++\Libraries\GLFW\include;D:\C++\Libraries\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\C++\snaps\freetype-gl;D:\C++\Libraries\Simple OpenGL Image Library\src;D:\C++\Libraries\GLEW\include;D:\C++\Libraries\GLFW\include;D:\C++\Libraries\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
       <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
@@ -102,8 +102,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>D:\C++\Libraries\Simple OpenGL Image Library\lib;D:\C++\Libraries\GLFW\lib;D:\C++\Libraries\GLEW\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32s.lib;SOIL.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\C++\snaps\freetype-gl\build\Debug;D:\C++\Libraries\Simple OpenGL Image Library\lib;D:\C++\Libraries\GLFW\lib;D:\C++\Libraries\GLEW\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32s.lib;SOIL.lib;freetype-gl.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalOptions>/ignore:4099 /ignore:4098 %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
@@ -169,6 +169,7 @@
     <ClCompile Include="src\render\api\Texture2D.cpp" />
     <ClCompile Include="src\render\api\Texture2DArray.cpp" />
     <ClCompile Include="src\render\BlockRenderer.cpp" />
+    <ClCompile Include="src\render\Renderer2D.cpp" />
     <ClCompile Include="src\util\FastNoise.cpp" />
     <ClCompile Include="src\util\Input.cpp" />
     <ClCompile Include="src\util\Timer.cpp" />
@@ -186,10 +187,18 @@
     <ClInclude Include="src\render\api\Texture2DArray.h" />
     <ClInclude Include="src\render\api\TextureProperties.h" />
     <ClInclude Include="src\render\BlockRenderer.h" />
+    <ClInclude Include="src\render\Renderer2D.h" />
     <ClInclude Include="src\util\FastNoise.h" />
     <ClInclude Include="src\util\Input.h" />
     <ClInclude Include="src\util\Timer.h" />
     <ClInclude Include="src\game\world\World.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="todo.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\shader\Renderer2D.frag" />
+    <None Include="res\shader\Renderer2D.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

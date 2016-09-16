@@ -1,6 +1,12 @@
 #pragma once
 #include "GL/glew.h"
+#include "glm/glm.hpp"
 #include <iostream>
+#include <memory>
+#include <string>
+#include <vector>
+#include <array>
+
 #define DEBUG
 #ifdef DEBUG
 #define GLCall(x) \
