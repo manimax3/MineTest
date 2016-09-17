@@ -146,7 +146,7 @@ void BlockRenderer::begin()
 
 struct ShaderBlock
 {
-	float x, y, z;
+	glm::vec3 position;
 	int id;
 };
 
@@ -156,10 +156,7 @@ void BlockRenderer::render(const Chunk &chunk)
 
 	for (const Block &bl : chunk.m_Blocks)
 	{
-		const glm::vec3 &pos = bl.position;
-		block->x = pos.x;
-		block->y = pos.y;
-		block->z = pos.z;
+		block->position = bl.position;
 		block->id = bl.ID;
 		block++;
 	}
