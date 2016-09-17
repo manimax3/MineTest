@@ -165,6 +165,8 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="src\gui\Font.cpp" />
     <ClCompile Include="src\gui\FontManager.cpp" />
+    <ClCompile Include="src\gui\Group.cpp" />
+    <ClCompile Include="src\gui\Label.cpp" />
     <ClCompile Include="src\MineTest.cpp" />
     <ClCompile Include="src\render\api\Camera.cpp" />
     <ClCompile Include="src\render\api\Shader.cpp" />
@@ -184,6 +186,9 @@
     <ClInclude Include="src\game\registry\GameRegistry.h" />
     <ClInclude Include="src\gui\Font.h" />
     <ClInclude Include="src\gui\FontManager.h" />
+    <ClInclude Include="src\gui\Group.h" />
+    <ClInclude Include="src\gui\Label.h" />
+    <ClInclude Include="src\gui\Renderable2D.h" />
     <ClInclude Include="src\MineTest.h" />
     <ClInclude Include="src\render\api\Camera.h" />
     <ClInclude Include="src\render\api\Shader.h" />

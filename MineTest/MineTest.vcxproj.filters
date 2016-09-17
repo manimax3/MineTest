@@ -69,6 +69,12 @@
     <ClCompile Include="src\gui\FontManager.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="src\gui\Label.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\Group.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\MineTest.h">
@@ -123,6 +129,15 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="src\gui\FontManager.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\Renderable2D.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\Label.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\Group.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>

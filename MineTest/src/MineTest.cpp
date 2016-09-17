@@ -8,7 +8,6 @@
 #include <string>
 #include "game/world/World.h"
 #include "render/Renderer2D.h"
-#include "gui/FontManager.h"
 
 
 void MineTest::run()
@@ -82,7 +81,8 @@ void MineTest::render()
 {
 	GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 
-	world.render();
+	render3D();
+	render2D();
 
 	glfwSwapBuffers(m_Window);
 }
@@ -99,6 +99,7 @@ void MineTest::tick()
 #ifdef DEBUG
 	std::cout << "FPS: " << m_FPS << " UPS: " << m_UPS << std::endl;
 #endif
+	//label->setText(std::string("FPS: ") + std::to_string(m_FPS) + " UPS: " + std::to_string(m_UPS));
 
 }
 
@@ -112,7 +113,18 @@ void MineTest::postInit()
 
 	BlockRenderer::instance()->init();
 	Renderer2D::instance()->init();
-	
+}
+
+void MineTest::render3D()
+{
+	world.render();
+}
+
+void MineTest::render2D()
+{
+	Renderer2D::instance()->begin();
+
+	Renderer2D::instance()->flush();
 }
 
 void mouse_callback(GLFWwindow* window, double xpos, double ypos)

@@ -25,5 +25,8 @@ private:
 	void preInit();
 	void postInit();
 
+	void render3D();
+	void render2D();
+
 };
 
