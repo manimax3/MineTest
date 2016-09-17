@@ -13,6 +13,8 @@ Texture2DArray::~Texture2DArray()
 
 void Texture2DArray::loadFromFiles(const std::vector<std::string> &files, const TextureProperties &properties)
 {
+
+	std::cout << ".1" << std::endl;
 	m_Properties = properties;
 	
 	GLCall(;);
@@ -22,6 +24,7 @@ void Texture2DArray::loadFromFiles(const std::vector<std::string> &files, const 
 	GLCall(glTextureParameteri(m_TextureID, GL_TEXTURE_MAG_FILTER, m_Properties.FilterMag));
 	GLCall(glTextureParameteri(m_TextureID, GL_TEXTURE_WRAP_S, m_Properties.Wrapping_S));
 	GLCall(glTextureParameteri(m_TextureID, GL_TEXTURE_WRAP_T, m_Properties.Wrapping_T));
+	std::cout << ".2" << std::endl;
 
 	uint i = 0;
 	for (auto &file : files)
@@ -32,6 +35,7 @@ void Texture2DArray::loadFromFiles(const std::vector<std::string> &files, const 
 		SOIL_free_image_data(pixels);
 		i++;
 	}
+	std::cout << ".3" << std::endl;
 
 	GLCall(glGenerateTextureMipmap(m_TextureID));
 }

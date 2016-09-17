@@ -73,7 +73,7 @@ void World::createThread()
 							float finalX = x + ((playerChunkXPos + dx) << 4);
 							float finalZ = y + ((playerChunkzPos + dz) << 4);
 							float finalY = std::floorf(m_Noise.GetSimplex(finalX, finalZ) * 10);
-							this->getChunks().back().m_Blocks.emplace_back(GameRegistry::instance().getBlockDefByID(2), glm::vec3(finalX, finalY, finalZ));
+							this->getChunks().back().m_Blocks.emplace_back(GameRegistry::instance().getBlockDefByID(0), glm::vec3(finalX, finalY, finalZ));
 						}
 				}
 			m_ChunkMutex.unlock();

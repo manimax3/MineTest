@@ -7,7 +7,7 @@ layout (location = 3) in int id;
 
 out vec2 texcoord;
 out vec3 color;
-flat out int tid;
+out int tid;
 
 uniform mat4 projection;
 

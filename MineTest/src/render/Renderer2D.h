@@ -3,6 +3,7 @@
 #include "../Defines.h"
 #include "api/Texture2D.h"
 #include "api/Shader.h"
+#include "../gui/Font.h"
 
 struct VertexData
 {
@@ -27,13 +28,18 @@ public:
 	void init();
 	void begin();
 
-	void submitText(std::string text, int x, int y);
+	void submitText(std::string text, glm::vec2 position, Font& font, glm::vec3 color);
 	void submitRectangle(glm::vec2 position, glm::vec2 size, glm::vec3 color);
+	void submitRectangle(glm::vec2 position, glm::vec2 size, glm::vec2 texCoord = glm::vec2(0,0), int tid = 0);
+
 	int addTexture(Texture2D *texture);
+	int queryTexture(uint id);
 
 	void flush();
 
 private:
+	void setTexture(uint id);
+
 	Renderer2D() = default;
 
 	std::unique_ptr<Shader> m_Shader;

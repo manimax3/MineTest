@@ -8,6 +8,7 @@
 #include <string>
 #include "game/world/World.h"
 #include "render/Renderer2D.h"
+#include "gui/FontManager.h"
 
 
 void MineTest::run()
@@ -52,6 +53,7 @@ void MineTest::init()
 {
 	preInit();
 
+
 	assert(glfwInit());
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
@@ -65,9 +67,9 @@ void MineTest::init()
 	glfwSetKeyCallback(m_Window, key_callback);
 	glfwSetCursorPosCallback(m_Window, mouse_callback);
 	glfwSetInputMode(m_Window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-
 	glewExperimental = GL_TRUE;
 	assert(glewInit() == GLEW_OK);
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	glGetError();
 	std::cout << "Using OpenGL " << std::string(reinterpret_cast<char*>(const_cast<byte*>(glGetString(GL_VERSION)))) << std::endl;
 	GLCall(glClearColor(0.1f, 0.1f, 0.1f, 1.0f));
@@ -76,15 +78,11 @@ void MineTest::init()
 }
 
 World world;
-
 void MineTest::render()
 {
 	GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
 
 	world.render();
-	Renderer2D::instance()->begin();
-	Renderer2D::instance()->submitRectangle(glm::vec2(100, 100), glm::vec2(100, 100), glm::vec3(255, 255, 255));
-	Renderer2D::instance()->flush();
 
 	glfwSwapBuffers(m_Window);
 }
@@ -106,13 +104,12 @@ void MineTest::tick()
 
 void MineTest::preInit()
 {
-	GameRegistry::instance().registerBlock(std::string("block_Stone"));
-	GameRegistry::instance().registerBlock(std::string("block_Dirt"));
 	GameRegistry::instance().registerBlock(std::string("block_Sided"));
 }
 
 void MineTest::postInit()
 {
+
 	BlockRenderer::instance()->init();
 	Renderer2D::instance()->init();
 	

@@ -1,8 +1,8 @@
 #include "Renderer2D.h"
 #include "glm/gtc/matrix_transform.hpp"
-#include "freetype-gl.h"
-
-using namespace ftgl;
+#include <sstream>
+#include "freetype-gl/freetype-gl.h"
+#include "../gui/FontManager.h"
 
 glm::mat4 projection = glm::ortho(0.f, (float)SCREEN_WIDTH, (float)SCREEN_HEIGHT, 0.f, -1.f, 1.f);
 
@@ -55,7 +55,16 @@ void Renderer2D::init()
 
 	GLCall(glBindVertexArray(0));
 
+	std::cout << "2D Renderer Initialized!" << std::endl;
+}
 
+void Renderer2D::begin()
+{
+	m_Shader->Use();
+	m_Shader->setUniform1i("textures", 0);
+	m_Shader->setUniformMat4("projection", projection);
+	m_IndexCount = 0;
+	buffer = (VertexData*) glMapNamedBuffer(vbo, GL_WRITE_ONLY);
 }
 
 void Renderer2D::submitRectangle(glm::vec2 position, glm::vec2 size, glm::vec3 color)
@@ -90,6 +99,106 @@ void Renderer2D::submitRectangle(glm::vec2 position, glm::vec2 size, glm::vec3 c
 	m_IndexCount += 6;
 }
 
+void Renderer2D::submitRectangle(glm::vec2 position, glm::vec2 size, glm::vec2 texCoord, int tid)
+{
+	buffer->position = position;
+	buffer->color = glm::vec3(0.0);
+	buffer->texcoords = texCoord;
+	buffer->tid = tid;
+	buffer++;
+
+	glm::vec2 vert = glm::vec2(position.x, position.y + size.y);
+	glm::vec2 uv = glm::vec2(texCoord.x, texCoord.y + 1.f);
+	buffer->position = vert;
+	buffer->color = glm::vec3(0.0);;
+	buffer->texcoords = uv;
+	buffer->tid = tid;
+	buffer++;
+
+	vert = position + size;
+	uv = texCoord + glm::vec2(1,1);
+	buffer->position = vert;
+	buffer->color = glm::vec3(0.0);;
+	buffer->texcoords = uv;
+	buffer->tid = tid;
+	buffer++;
+
+	vert = glm::vec2(position.x + size.x, position.y);
+	uv = glm::vec2(texCoord.x + 1.f, texCoord.y);
+	buffer->position = vert;
+	buffer->color = glm::vec3(0.0);;
+	buffer->texcoords = uv;
+	buffer->tid = tid;
+	buffer++;
+
+	m_IndexCount += 6;
+}
+
+void Renderer2D::submitText(std::string text, glm::vec2 position, Font& font, glm::vec3 color)
+{
+	using namespace ftgl;
+	m_Shader->setUniform1f("isText", 1.0f);
+	setTexture(font.getID());
+	const glm::vec2 &scale = font.getScale();
+	float x = position.x;
+	texture_font_t* ftFont = font.getFTFont();
+
+	for (uint i = 0; i < text.length(); i++)
+	{
+		char c = text[i];
+		texture_glyph_t* glyph = texture_font_get_glyph(ftFont, c);
+		if (glyph != nullptr)
+		{
+			if (i > 0)
+			{
+				float kerning = texture_glyph_get_kerning(glyph, text[i - 1]);
+			    x += kerning / scale.x;
+			}
+
+			float x0 = x + glyph->offset_x / scale.x;
+			float y0 = position.y - glyph->offset_y / scale.y;
+			float x1 = x0 + glyph->width / scale.x;
+			float y1 = y0 + glyph->height / scale.y;
+			
+			float u0 = glyph->s0;
+			float v0 = glyph->t0;
+			float u1 = glyph->s1;
+			float v1 = glyph->t1;
+
+			buffer->position = glm::vec2(x0, y0);
+			buffer->color = color;
+			buffer->texcoords = glm::vec2(u0, v0);
+			buffer->tid = 0;
+			buffer++;
+
+			buffer->position = glm::vec2(x0, y1);
+			buffer->color = color;
+			buffer->texcoords = glm::vec2(u0, v1);
+			buffer->tid = 0;
+			buffer++;
+
+			buffer->position = glm::vec2(x1, y1);
+			buffer->color = color;
+			buffer->texcoords = glm::vec2(u1, v1);
+			buffer->tid = 0;
+			buffer++;
+
+			buffer->position = glm::vec2(x1, y0);
+			buffer->color = color;
+			buffer->texcoords = glm::vec2(u1, v0);
+			buffer->tid = 0;
+			buffer++;
+
+			m_IndexCount += 6;
+
+			x += glyph->advance_x / scale.x;
+		}
+	}
+	this->flush();
+	this->begin();
+	m_Shader->setUniform1f("isText", 0.0f);
+}
+
 int Renderer2D::addTexture(Texture2D *texture)
 {
 	m_Textures.push_back(texture);
@@ -98,22 +207,27 @@ int Renderer2D::addTexture(Texture2D *texture)
 }
 
 
+int Renderer2D::queryTexture(uint id)
+{
+	for (int i = 0; i < m_Textures.size(); i++)
+	{
+		if (m_Textures.at(i)->getID() == id)
+			return i;
+	}
+	return 0;
+}
+
+void Renderer2D::setTexture(uint id)
+{
+	GLCall(glActiveTexture(GL_TEXTURE0));
+	GLCall(glBindTexture(GL_TEXTURE_2D, id));
+}
+
 void Renderer2D::flush()
 {
 	GLCall(glUnmapNamedBuffer(vbo));
 	GLCall(glBindVertexArray(m_Buffer));
+	GLCall(glDepthFunc(GL_ALWAYS));
 	GLCall(glDrawElements(GL_TRIANGLES, m_IndexCount, GL_UNSIGNED_INT, NULL));
-}
-
-void Renderer2D::begin()
-{
-	m_Shader->Use();
-	
-	int texs[] = { 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30 };
-	for (int i = 0; i < m_Textures.size(); i++)
-		m_Textures.at(i)->bind(i);
-	m_Shader->setUniform1iv("textures", &texs[0], 30);
-	m_Shader->setUniformMat4("projection", projection);
-	m_IndexCount = 0;
-	buffer = (VertexData*) glMapNamedBuffer(vbo, GL_WRITE_ONLY);
+	GLCall(glDepthFunc(GL_LESS));
 }

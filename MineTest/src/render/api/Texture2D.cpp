@@ -37,6 +37,7 @@ void Texture2D::loadFromFile(std::string path, TextureProperties &properties)
 
 void Texture2D::loadFromMemory(byte* data, TextureProperties &properties)
 {
+	GLCall(glGenTextures(1, &m_TextureID));
 	m_Properties = properties;
 	GLCall(glBindTexture(GL_TEXTURE_2D, m_TextureID));
 	GLCall(glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_Properties.width, m_Properties.height, 0, GL_RGB, GL_UNSIGNED_BYTE, data));

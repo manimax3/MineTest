@@ -122,8 +122,12 @@ void BlockRenderer::init()
 	prop.height = 32;
 	prop.width = 192;
 
+
+	std::cout << "5" << std::endl;
+
 	m_BlockTextures.loadFromFiles(paths, prop);
 
+	std::cout << "6" << std::endl;
 	std::cout << "BlockRenderer Initialized!" << std::endl;
 }
 

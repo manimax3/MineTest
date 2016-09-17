@@ -87,9 +87,9 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>GLEW_STATIC;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>GLEW_STATIC;WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\C++\snaps\freetype-gl;D:\C++\Libraries\Simple OpenGL Image Library\src;D:\C++\Libraries\GLEW\include;D:\C++\Libraries\GLFW\include;D:\C++\Libraries\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\C++\Projekte\MineTest\Dependencies\FreeType\;D:\C++\Libraries\Simple OpenGL Image Library\src;D:\C++\Libraries\GLEW\include;D:\C++\Libraries\GLFW\include;D:\C++\Libraries\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
       <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
@@ -102,8 +102,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>D:\C++\snaps\freetype-gl\build\Debug;D:\C++\Libraries\Simple OpenGL Image Library\lib;D:\C++\Libraries\GLFW\lib;D:\C++\Libraries\GLEW\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32s.lib;SOIL.lib;freetype-gl.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\C++\Projekte\MineTest\bin\Debug;D:\C++\Libraries\Simple OpenGL Image Library\lib;D:\C++\Libraries\GLFW\lib;D:\C++\Libraries\GLEW\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32s.lib;SOIL.lib;MineTestFont.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalOptions>/ignore:4099 /ignore:4098 %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
@@ -163,6 +163,8 @@
     <ClCompile Include="src\game\world\Chunk.cpp" />
     <ClCompile Include="src\game\registry\GameRegistry.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\gui\Font.cpp" />
+    <ClCompile Include="src\gui\FontManager.cpp" />
     <ClCompile Include="src\MineTest.cpp" />
     <ClCompile Include="src\render\api\Camera.cpp" />
     <ClCompile Include="src\render\api\Shader.cpp" />
@@ -180,6 +182,8 @@
     <ClInclude Include="src\game\world\Chunk.h" />
     <ClInclude Include="src\Defines.h" />
     <ClInclude Include="src\game\registry\GameRegistry.h" />
+    <ClInclude Include="src\gui\Font.h" />
+    <ClInclude Include="src\gui\FontManager.h" />
     <ClInclude Include="src\MineTest.h" />
     <ClInclude Include="src\render\api\Camera.h" />
     <ClInclude Include="src\render\api\Shader.h" />
