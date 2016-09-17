@@ -152,13 +152,13 @@ void Renderer2D::submitText(std::string text, glm::vec2 position, Font& font, gl
 			if (i > 0)
 			{
 				float kerning = texture_glyph_get_kerning(glyph, text[i - 1]);
-			    x += kerning / scale.x;
+			    x += kerning * scale.x;
 			}
 
-			float x0 = x + glyph->offset_x / scale.x;
-			float y0 = font.getFTFont()->ascender + position.y - glyph->offset_y / scale.y;
-			float x1 = x0 + glyph->width / scale.x;
-			float y1 = y0 + glyph->height / scale.y;
+			float x0 = x + glyph->offset_x * scale.x;
+			float y0 = (font.getFTFont()->ascender + position.y - glyph->offset_y) * scale.y;
+			float x1 = x0 + glyph->width * scale.x;
+			float y1 = y0 + glyph->height * scale.y;
 			
 			float u0 = glyph->s0;
 			float v0 = glyph->t0;
@@ -191,7 +191,7 @@ void Renderer2D::submitText(std::string text, glm::vec2 position, Font& font, gl
 
 			m_IndexCount += 6;
 
-			x += glyph->advance_x / scale.x;
+			x += glyph->advance_x * scale.x;
 		}
 	}
 	this->flush();

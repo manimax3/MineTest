@@ -3,7 +3,7 @@
 
 Font* FontManager::defaultFont()
 {
-	Font* font = new Font("Consolas", "./res/font/Consolas.ttf", 20);
+	Font* font = new Font("Consolas", "./res/font/Consolas.ttf", 25);
 	add(font);
 	return font;
 }
