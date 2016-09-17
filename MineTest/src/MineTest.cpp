@@ -8,6 +8,8 @@
 #include <string>
 #include "game/world/World.h"
 #include "render/Renderer2D.h"
+#include "gui/GroupManager.h"
+#include "gui/debug/DebugGroup.h"
 
 
 void MineTest::run()
@@ -92,8 +94,9 @@ void MineTest::update()
 	glfwPollEvents();
 	GameRegistry::instance().getPlayer().update();
 	world.update();
+	GroupManager::instance()->update();
 }
-
+DebugGroup *debug;
 void MineTest::tick()
 {
 #ifdef DEBUG
@@ -113,6 +116,7 @@ void MineTest::postInit()
 
 	BlockRenderer::instance()->init();
 	Renderer2D::instance()->init();
+	debug = new DebugGroup(m_FPS, m_UPS);
 }
 
 void MineTest::render3D()
@@ -123,7 +127,7 @@ void MineTest::render3D()
 void MineTest::render2D()
 {
 	Renderer2D::instance()->begin();
-
+	GroupManager::instance()->render();
 	Renderer2D::instance()->flush();
 }
 
@@ -147,4 +151,11 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		Input::instance().keys[key] = true;
 	else if (action == GLFW_RELEASE)
 		Input::instance().keys[key] = false;
+
+	//TODO: Custom Callback Registration
+	if (action == GLFW_PRESS) 
+	{
+		if (key == GLFW_KEY_F3)
+			debug->Visible(!debug->isVisible());
+	}
 }

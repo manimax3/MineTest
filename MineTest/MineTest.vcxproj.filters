@@ -75,6 +75,12 @@
     <ClCompile Include="src\gui\Group.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
+    <ClCompile Include="src\gui\GroupManager.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\debug\DebugGroup.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\MineTest.h">
@@ -138,6 +144,12 @@
       <Filter>Headerdateien</Filter>
     </ClInclude>
     <ClInclude Include="src\gui\Group.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\GroupManager.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\debug\DebugGroup.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
   </ItemGroup>
