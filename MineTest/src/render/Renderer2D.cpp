@@ -156,7 +156,7 @@ void Renderer2D::submitText(std::string text, glm::vec2 position, Font& font, gl
 			}
 
 			float x0 = x + glyph->offset_x / scale.x;
-			float y0 = position.y - glyph->offset_y / scale.y;
+			float y0 = font.getFTFont()->ascender + position.y - glyph->offset_y / scale.y;
 			float x1 = x0 + glyph->width / scale.x;
 			float y1 = y0 + glyph->height / scale.y;
 			
