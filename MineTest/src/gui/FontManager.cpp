@@ -1,6 +1,13 @@
 #include "FontManager.h"
 #include "freetype-gl/freetype-gl.h"
 
+Font* FontManager::defaultFont()
+{
+	Font* font = new Font("Consolas", "./res/font/Consolas.ttf", 20);
+	add(font);
+	return font;
+}
+
 std::vector<Font*> FontManager::m_Fonts;
 
 void FontManager::add(Font* font)
@@ -16,7 +23,10 @@ void FontManager::add(Font* font)
 
 Font* FontManager::get()
 {
-	return m_Fonts.at(0);
+	if (m_Fonts.size() > 0)
+		return m_Fonts.at(0);
+	else
+		return FontManager::defaultFont();
 }
 
 Font* FontManager::get(const std::string& name)
@@ -26,7 +36,7 @@ Font* FontManager::get(const std::string& name)
 		if (f->getName() == name)
 			return f;
 	}
-	return nullptr;
+	return FontManager::defaultFont();;
 }
 
 Font* FontManager::get(const std::string& name, unsigned int size)

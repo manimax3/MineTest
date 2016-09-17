@@ -12,6 +12,7 @@ public:
 	static void clean();
 private:
 	FontManager() { }
+	static Font* defaultFont();
 
 	static std::vector<Font*> m_Fonts;
 };
