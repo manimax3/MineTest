@@ -24,7 +24,6 @@ public:
 	~Chunk() = default;
 	std::vector<Block> m_Blocks;
 private:
-
 	friend class BlockRenderer;
 };
 

@@ -1,10 +1,11 @@
 #pragma once
 #include "..\Group.h"
 #include "..\Label.h"
+#include "..\..\util\IKeyListener.h"
 
 class Player;
 
-class DebugGroup : public Group
+class DebugGroup : public Group, public IKeyListener
 {
 public:
 	DebugGroup(uint &fps, uint &ups);
@@ -22,5 +23,9 @@ private:
 	Player &player;
 
 	Label *updLab, *posLab;
+
+	virtual void onKeyPressed(int key) override;
+	virtual void onKeyReleased(int key) override;
+
 };
 

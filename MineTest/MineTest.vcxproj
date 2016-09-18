@@ -202,6 +202,7 @@
     <ClInclude Include="src\render\BlockRenderer.h" />
     <ClInclude Include="src\render\Renderer2D.h" />
     <ClInclude Include="src\util\FastNoise.h" />
+    <ClInclude Include="src\util\IKeyListener.h" />
     <ClInclude Include="src\util\Input.h" />
     <ClInclude Include="src\util\Timer.h" />
     <ClInclude Include="src\game\world\World.h" />

@@ -1,7 +1,7 @@
 #include "BlockRenderer.h"
 #include "../game/registry/GameRegistry.h"
 
-#define TEXTURE(x, y) ((x + y) / 5.999f)
+#define TEXTURE(x, y) ((x + y) / 6.f)
 
 GLfloat cubeVertices[] = {
 	// Positions          // Texture Coords

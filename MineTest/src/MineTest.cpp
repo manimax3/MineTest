@@ -11,6 +11,8 @@
 #include "gui/GroupManager.h"
 #include "gui/debug/DebugGroup.h"
 
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
+void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 
 void MineTest::run()
 {
@@ -148,14 +150,13 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		glfwSetWindowShouldClose(window, GL_TRUE);
 
 	if (action == GLFW_PRESS)
-		Input::instance().keys[key] = true;
-	else if (action == GLFW_RELEASE)
-		Input::instance().keys[key] = false;
-
-	//TODO: Custom Callback Registration
-	if (action == GLFW_PRESS) 
 	{
-		if (key == GLFW_KEY_F3)
-			debug->Visible(!debug->isVisible());
+		Input::instance().keys[key] = true;
+		Input::instance().mousePressed(key);
+	}
+	else if (action == GLFW_RELEASE)
+	{
+		Input::instance().keys[key] = false;
+		Input::instance().mouseReleased(key);
 	}
 }

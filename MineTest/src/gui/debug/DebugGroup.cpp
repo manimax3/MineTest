@@ -14,6 +14,7 @@ DebugGroup::DebugGroup(uint &fps, uint &ups)
 	addRenderable(posLab);
 
 	GroupManager::instance()->addGroup(this);
+	Input::instance().registerListener(this);
 }
 
 DebugGroup::~DebugGroup()
@@ -40,3 +41,12 @@ void DebugGroup::update()
 						std::to_string((int)std::floorf(player.getPosition().z / 16));
 	posLab->setText(text);
 }
+
+void DebugGroup::onKeyPressed(int key)
+{
+	if (key == GLFW_KEY_F3)
+		m_Visible = !m_Visible;
+}
+
+void DebugGroup::onKeyReleased(int key)
+{}
