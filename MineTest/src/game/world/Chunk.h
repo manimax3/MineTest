@@ -1,8 +1,9 @@
 #pragma once
 #include "../../Defines.h"
 #include "../registry/GameRegistry.h"
-#include "glm/glm.hpp"
-#include <vector>
+#include "../../util/FastNoise.h"
+
+typedef FastNoise ChunkHeightProvider;
 
 struct Block
 {
@@ -16,14 +17,16 @@ struct Block
 
 class Chunk
 {
-private:
-	static const uint CHUNK_SIZE = 16;
-	static const uint CHUNK_HEIGHT = 256;
 public:
-	Chunk() = default;
+	static constexpr uint CHUNK_SIZE = 16;
+	static constexpr uint CHUNK_HEIGHT = 256;
+public:
+	Chunk(int x, int z, ChunkHeightProvider provider);
 	~Chunk() = default;
+
 	std::vector<Block> m_Blocks;
 private:
-	friend class BlockRenderer;
+	int x, z;
+	void generate(ChunkHeightProvider provider);
 };
 

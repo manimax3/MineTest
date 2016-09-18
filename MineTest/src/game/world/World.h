@@ -7,6 +7,8 @@
 #include <memory>
 #include "../../util/FastNoise.h"
 
+typedef FastNoise ChunkHeightProvider;
+
 class World
 {
 public:

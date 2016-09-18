@@ -58,27 +58,21 @@ void World::createThread()
 		{
 			if (!m_ThreadRunning)
 				break;
-			m_ChunkMutex.lock();
-			this->getChunks().clear();
-			this->getChunks().shrink_to_fit();
 			int playerChunkzPos = ((int)GameRegistry::instance().getPlayer().getPosition().z) >> 4;
 			int playerChunkXPos = ((int)GameRegistry::instance().getPlayer().getPosition().x) >> 4;
+
+			m_ChunkMutex.lock();
+			this->getChunks().clear();
 			for (short dx = -3; dx < 3; dx++)
 				for (short dz = -3; dz < 3; dz++)
 				{
-					this->getChunks().emplace_back();
-					for (short x = 0; x < 16; x++)
-						for (short y = 0; y < 16; y++)
-						{
-							float finalX = x + ((playerChunkXPos + dx) << 4);
-							float finalZ = y + ((playerChunkzPos + dz) << 4);
-							float finalY = std::floorf(m_Noise.GetSimplex(finalX, finalZ) * 10);
-							this->getChunks().back().m_Blocks.emplace_back(GameRegistry::instance().getBlockDefByID(0), glm::vec3(finalX, finalY, finalZ));
-						}
+					int xpos = playerChunkXPos + dx;
+					int zpos = playerChunkzPos + dz;
+					this->getChunks().emplace_back(xpos, zpos, m_Noise);
 				}
+
 			m_ChunkMutex.unlock();
 			std::this_thread::sleep_for(std::chrono::seconds(1));
 		}
-
 	});
 }

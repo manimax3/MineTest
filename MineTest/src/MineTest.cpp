@@ -102,9 +102,8 @@ DebugGroup *debug;
 void MineTest::tick()
 {
 #ifdef DEBUG
-	std::cout << "FPS: " << m_FPS << " UPS: " << m_UPS << std::endl;
+	//std::cout << "FPS: " << m_FPS << " UPS: " << m_UPS << std::endl;
 #endif
-	//label->setText(std::string("FPS: ") + std::to_string(m_FPS) + " UPS: " + std::to_string(m_UPS));
 
 }
 
