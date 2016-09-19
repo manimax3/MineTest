@@ -132,6 +132,8 @@ void MineTest::render2D()
 	Renderer2D::instance()->flush();
 }
 
+#pragma region Callbacks
+
 void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 {
 	float xOffset = xpos - Input::instance().m_MouseX;
@@ -157,5 +159,10 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 	{
 		Input::instance().keys[key] = false;
 		Input::instance().mouseReleased(key);
+		if (key == GLFW_KEY_F4)
+			for (auto &ch : world.getChunks())
+				ch.unload();
 	}
 }
+
+#pragma endregion

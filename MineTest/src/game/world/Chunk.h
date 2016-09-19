@@ -9,7 +9,6 @@ struct Block
 {
 	uint ID;
 	glm::vec3 position;
-	bool visible;
 
 	Block(const BlockDefinition &def) : ID(def.ID) {}
 	Block(const BlockDefinition &def, glm::vec3 position) : ID(def.ID), position(position) {}
@@ -23,6 +22,8 @@ public:
 public:
 	Chunk(int x, int z, ChunkHeightProvider provider);
 	~Chunk() = default;
+
+	void unload();
 
 	std::vector<Block> m_Blocks;
 private:
