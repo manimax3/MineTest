@@ -1,7 +1,7 @@
 #version 450 core
 
 in vec2 TexCoords;
-in float ID;
+flat in int ID;
 
 uniform sampler2DArray textures;
 

@@ -48,7 +48,7 @@ void Chunk::generate(ChunkHeightProvider provider)
 			float finalX = dx + (this->x << 4);
 			float finalZ = dy + (this->z << 4);
 			float finalY = std::floorf(provider.GetSimplex(finalX, finalZ) * 10);
-			this->m_Blocks.emplace_back(GameRegistry::instance().getBlockDefByID(0), glm::vec3(finalX, finalY, finalZ));
+			this->m_Blocks.emplace_back(GameRegistry::instance().getBlockDefByID(0), glm::vec3(dx, finalY, dy));
 		}
 }
 

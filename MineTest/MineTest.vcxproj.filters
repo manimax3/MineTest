@@ -162,5 +162,7 @@
   <ItemGroup>
     <None Include="res\shader\Renderer2D.vert" />
     <None Include="res\shader\Renderer2D.frag" />
+    <None Include="res\shader\BlockRenderer.vert" />
+    <None Include="res\shader\BlockRenderer.frag" />
   </ItemGroup>
 </Project>

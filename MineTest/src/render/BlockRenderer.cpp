@@ -97,9 +97,9 @@ void BlockRenderer::init()
 		GLCall(glBindBuffer(GL_ARRAY_BUFFER, m_ChunkVBO));
 		GLCall(glBufferData(GL_ARRAY_BUFFER, CHUNK_VBO_MAX_SIZE, nullptr, GL_STREAM_DRAW));
 		GLCall(glEnableVertexAttribArray(2));
-		GLCall(glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), 0));
+		GLCall(glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat) + 4, 0));
 		GLCall(glEnableVertexAttribArray(3));
-		GLCall(glVertexAttribPointer(3, 1, GL_INT, GL_FALSE, 4 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat))));
+		GLCall(glVertexAttribPointer(3, 1, GL_INT, GL_FALSE, 3 * sizeof(GLfloat) + 4, (GLvoid*)(3 * sizeof(GLfloat))));
 
 		GLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
 		GLCall(glVertexAttribDivisor(2, 1));
@@ -156,7 +156,9 @@ void BlockRenderer::render(const Chunk &chunk)
 
 	for (const Block &bl : chunk.m_Blocks)
 	{
-		block->position = bl.position;
+		int xoff = ((int)chunk.x) << 4;
+		int zoff = ((int)chunk.z) << 4;
+		block->position = bl.position + glm::vec3(xoff, 0 , zoff);
 		block->id = bl.ID;
 		block++;
 	}

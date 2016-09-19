@@ -7,7 +7,7 @@ typedef FastNoise ChunkHeightProvider;
 
 struct Block
 {
-	uint ID;
+	short ID;
 	glm::vec3 position;
 
 	Block(const BlockDefinition &def) : ID(def.ID) {}
@@ -26,8 +26,8 @@ public:
 	void unload();
 
 	std::vector<Block> m_Blocks;
-private:
 	int x, z;
+private:
 	void generate(ChunkHeightProvider provider);
 };
 
