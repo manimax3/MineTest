@@ -17,7 +17,7 @@ public:
 	void init();
 
 	void begin();
-	void render(const Chunk &chunk);
+	void render(Chunk &chunk);
 
 private:
 	BlockRenderer();

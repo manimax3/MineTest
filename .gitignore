@@ -7,3 +7,5 @@
 /MineTest.VC.opendb
 /Dependencies
 /bin
+
+*.db

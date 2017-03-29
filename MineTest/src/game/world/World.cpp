@@ -6,73 +6,49 @@
 World::World()
 {
 	m_Noise.SetInterp(FastNoise::Interp::Linear);
-	this->getChunks().clear();
-	this->getChunks().shrink_to_fit();
+	for (int x = -3; x < 3; x++)
+		for (int z = -3; z < 3; z++)
+			m_LoadedChunks.push_back(std::make_unique<Chunk>(x, z, m_Noise));
+
+	startRegionGeneration();
+		
+
 }
 
 
 World::~World()
-{
-	m_ThreadRunning = false;
-	m_Thread->join();
-}
+{}
 
 void World::render()
 {
-	std::lock_guard<std::mutex> lock(m_ChunkMutex);
 	BlockRenderer::instance()->begin();
 	for (auto &loadedChunk : this->getChunks())
 	{
-		BlockRenderer::instance()->render(loadedChunk);
+		BlockRenderer::instance()->render(*loadedChunk);
 	}
 }
 
 void World::update()
 {
-	if (!m_ThreadRunning)
-		this->createThread();
+	for (auto& chunk : m_LoadedChunks)
+		chunk->update();
 }
 
-std::vector<Chunk>& World::getChunks()
+std::vector<ChunkPointer>& World::getChunks()
 {
 	return m_LoadedChunks;
 }
 
-void World::registerChunk(Chunk& chunk)
+void World::startRegionGeneration()
 {
-	std::lock_guard<std::mutex> lock(m_ChunkMutex);
-	m_LoadedChunks.push_back(std::move(chunk));
-}
-
-void World::clearChunks()
-{
-	std::lock_guard<std::mutex> lock(m_ChunkMutex);
-	m_LoadedChunks.clear();
-}
-
-void World::createThread()
-{
-	m_ThreadRunning = true;
-	m_Thread = std::make_unique<std::thread>([this]() {
+	std::thread thread([this]() {
 		while (true)
 		{
-			if (!m_ThreadRunning)
-				break;
-			int playerChunkzPos = ((int)GameRegistry::instance().getPlayer().getPosition().z) >> 4;
-			int playerChunkXPos = ((int)GameRegistry::instance().getPlayer().getPosition().x) >> 4;
-
-			m_ChunkMutex.lock();
-			this->getChunks().clear();
-			for (short dx = -3; dx < 3; dx++)
-				for (short dz = -3; dz < 3; dz++)
-				{
-					int xpos = playerChunkXPos + dx;
-					int zpos = playerChunkzPos + dz;
-					this->getChunks().emplace_back(xpos, zpos, m_Noise);
-				}
-
-			m_ChunkMutex.unlock();
-			std::this_thread::sleep_for(std::chrono::seconds(1));
+			for (auto &chunk : m_LoadedChunks)
+				if (chunk->m_ShoudRegen)
+					chunk->generate();
 		}
 	});
+	thread.detach();
 }
+

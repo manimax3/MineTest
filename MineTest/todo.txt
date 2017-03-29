@@ -1,0 +1,8 @@
+TODO:
+
+- Make the mipmaps optional
+- chunks serialzation anpassen (block id ist nun short)
+- keine position mehr in blöcken speichern sondern nur im chunk (array<short>(CHUNK_SIZE * CHUNK_SIZE * CHUNK_HEIGHT))
+- 4/8/16/32 chunks in einer datei als eine region speichern
+- chunks bzw die regions dynamisch aus den dateien laden
+- system das verwaltet ob/wann chunk gespeichert oder geladen werden muss

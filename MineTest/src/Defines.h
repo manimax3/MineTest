@@ -6,6 +6,9 @@
 #include <string>
 #include <vector>
 #include <array>
+#include <fstream>
+#include <future>
+#include <thread>
 
 #define DEBUG
 #ifdef DEBUG
@@ -23,6 +26,7 @@
 
 
 void __CheckGLError(const char* function, const char* file, int line);
+bool does_file_exist(const std::string& name);
 
 typedef unsigned int uint;
 typedef unsigned char byte;

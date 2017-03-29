@@ -122,12 +122,8 @@ void BlockRenderer::init()
 	prop.height = 32;
 	prop.width = 192;
 
-
-	std::cout << "5" << std::endl;
-
 	m_BlockTextures.loadFromFiles(paths, prop);
 
-	std::cout << "6" << std::endl;
 	std::cout << "BlockRenderer Initialized!" << std::endl;
 }
 
@@ -150,19 +146,19 @@ struct ShaderBlock
 	int id;
 };
 
-void BlockRenderer::render(const Chunk &chunk)
+void BlockRenderer::render(Chunk &chunk)
 {
 	ShaderBlock *block = (ShaderBlock *) glMapNamedBuffer(m_ChunkVBO, GL_WRITE_ONLY);
 
-	for (const Block &bl : chunk.m_Blocks)
+	for (const Block &bl : chunk.getBlocks())
 	{
-		int xoff = ((int)chunk.x) << 4;
-		int zoff = ((int)chunk.z) << 4;
+		int xoff = (static_cast<int>(chunk.x)) << 4;
+		int zoff = (static_cast<int>(chunk.z)) << 4;
 		block->position = bl.position + glm::vec3(xoff, 0 , zoff);
 		block->id = bl.ID;
 		block++;
 	}
 
 	GLCall(glUnmapNamedBuffer(m_ChunkVBO));
-	GLCall(glDrawArraysInstanced(GL_TRIANGLES, 0, 36, chunk.m_Blocks.size()));
+	GLCall(glDrawArraysInstanced(GL_TRIANGLES, 0, 36, chunk.getBlocks().size()));
 }

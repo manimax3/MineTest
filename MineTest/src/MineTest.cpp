@@ -80,7 +80,7 @@ void MineTest::init()
 	postInit();
 }
 
-World world;
+World *world;
 void MineTest::render()
 {
 	GLCall(glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
@@ -95,7 +95,7 @@ void MineTest::update()
 {
 	glfwPollEvents();
 	GameRegistry::instance().getPlayer().update();
-	world.update();
+	world->update();
 	GroupManager::instance()->update();
 }
 DebugGroup *debug;
@@ -110,6 +110,7 @@ void MineTest::tick()
 void MineTest::preInit()
 {
 	GameRegistry::instance().registerBlock(std::string("block_Sided"));
+	GameRegistry::instance().registerBlock(std::string("block_Dirt"));
 }
 
 void MineTest::postInit()
@@ -118,11 +119,12 @@ void MineTest::postInit()
 	BlockRenderer::instance()->init();
 	Renderer2D::instance()->init();
 	debug = new DebugGroup(m_FPS, m_UPS);
+	world = new World;
 }
 
 void MineTest::render3D()
 {
-	world.render();
+	world->render();
 }
 
 void MineTest::render2D()
@@ -160,8 +162,8 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 		Input::instance().keys[key] = false;
 		Input::instance().mouseReleased(key);
 		if (key == GLFW_KEY_F4)
-			for (auto &ch : world.getChunks())
-				ch.unload();
+			for (auto &ch : world->getChunks())
+				ch->unload();
 	}
 }
 

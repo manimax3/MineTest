@@ -6,8 +6,10 @@
 #include <thread>
 #include <memory>
 #include "../../util/FastNoise.h"
+#include <deque>
 
 typedef FastNoise ChunkHeightProvider;
+typedef std::unique_ptr<Chunk> ChunkPointer;
 
 class World
 {
@@ -15,24 +17,19 @@ public:
 	World();
 	~World();
 
-	void create(uint seed);
 	void render();
 	void update();
 
-	std::vector<Chunk>& getChunks();
-
-protected:
-	void registerChunk(Chunk& chunk);
-	void clearChunks();
-	void createThread();
+	std::vector<ChunkPointer>& getChunks();
 
 private:
 	std::mutex m_ChunkMutex;
-	std::vector<Chunk> m_LoadedChunks;
+	std::vector<ChunkPointer> m_LoadedChunks;
 	FastNoise m_Noise;
 
 	bool m_ThreadRunning;
-	std::unique_ptr<std::thread> m_Thread;
+
+	void startRegionGeneration();
 
 };
 

@@ -11,3 +11,8 @@ void __CheckGLError(const char* function, const char* file, int line)
 		error = glGetError();
 	}
 }
+
+bool does_file_exist(const std::string& name) {
+	std::ifstream f(name.c_str());
+	return f.good();
+}
