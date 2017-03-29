@@ -9,7 +9,7 @@ typedef FastNoise ChunkHeightProvider;
 
 struct Block
 {
-	short ID;
+	int ID;
 	glm::vec3 position;
 
 	Block(const BlockDefinition &def) : ID(def.ID) {}
@@ -29,6 +29,10 @@ public:
 	void unload();
 	void update();
 	std::vector<Block>& getBlocks();
+
+	std::vector<Block>& getBlocksUnlocked();
+	void lock();
+	void unlock();
 
 	int x, z;
 	std::atomic_bool m_ShoudRegen;

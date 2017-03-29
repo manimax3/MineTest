@@ -33,9 +33,24 @@ std::vector<Block>& Chunk::getBlocks()
 	return m_Blocks;
 }
 
+std::vector<Block>& Chunk::getBlocksUnlocked()
+{
+	return m_Blocks;
+}
+
+void Chunk::lock()
+{
+	m_BlockLock.lock();
+}
+
+void Chunk::unlock()
+{
+	m_BlockLock.unlock();
+}
+
 void Chunk::generate()
 {
-	if (!m_BlockLock.try_lock()) 
+	if (!m_BlockLock.try_lock())
 		return;
 
 	this->m_Blocks.clear();
